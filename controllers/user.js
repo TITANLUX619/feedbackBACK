@@ -46,16 +46,22 @@ function addEvaluation(req, res) {
         if (err) return res.status(500).send({ message: `Error al realizar la peteción ${err}` })
         if (!user) return res.status(404).send({ message: 'No existe el usuario' })
         let psUpdate = user.ps
-        psUpdate[req.params.session]=req.body.ps
+        psUpdate[req.params.session-1]=req.body.ps
         let eUpdate = user.evaluations
         if (req.body.result==='true'){
-            eUpdate[req.params.session]=true
+            eUpdate[req.params.session-1]=true
         } else {
-            eUpdate[req.params.session]=false
+            eUpdate[req.params.session-1]=false
+        }
+        let oeUpdate = user.optionalEvaluations
+        if (req.body.optionalResult==='true'){
+            oeUpdate[req.params.session-1]=true
+        } else {
+            oeUpdate[req.params.session-1]=false
         }
 
         
-        User.updateOne({uvus: req.params.uvus}, {evaluations: eUpdate, ps: psUpdate}, (err, updated) => {
+        User.updateOne({uvus: req.params.uvus}, {evaluations: eUpdate, optionalEvaluations: oeUpdate, ps: psUpdate}, (err, updated) => {
             if (err) return res.status(500).send({ message: `Error al realizar la peteción ${err}` })
             return res.status(200).send( { message: 'Actualizados: ', updated } )
         }) 

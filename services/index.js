@@ -12,7 +12,8 @@ function createToken(user) {
     email: user.email,
     uvus: user.uvus,
     group: user.group,
-    evaluations: user.evaluations,   
+    evaluations: user.evaluations,
+    optionalEvaluations: user.optionalEvaluations,   
     exp: moment().add(14, 'days').unix()
   }
   let token = jwt.encode(payload, config.SECRET_TOKEN)     
@@ -40,7 +41,8 @@ function decodeToken(token) {
           email: payload.email,
           uvus: payload.uvus,
           group: payload.group,
-          evaluations: payload.evaluations
+          evaluations: payload.evaluations,
+          optionalEvaluations: payload.optionalEvaluations
       })
 
     } catch (err) {

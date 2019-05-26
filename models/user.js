@@ -13,6 +13,7 @@ const UserSchema = Schema({
     password: String,
     group: String,
     evaluations: [Boolean],
+    optionalEvaluations: [Boolean],
     ps: { type: [String], enum: ['P', 'S'] },
     signupDate: { type: Date, default: Date.now() },
 })
